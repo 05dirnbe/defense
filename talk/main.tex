@@ -1,0 +1,1341 @@
+
+
+
+\listfiles
+
+\documentclass[	hyperref={pdfpagelabels=false}, xcolor=dvipsnames,
+		11pt]{beamer}
+
+\input{./commands/commands}
+\input{./preamble/preamble}
+ 
+\logo{\includegraphics[width=1cm]{unilogo}}
+
+
+\title{Physarum Computing:\\ Slime on Shortest Paths}
+\author{Michael T. Dirnberger}
+\institute{Max Planck Institute for Informatics Saarbr\"ucken}
+%\date{}
+
+\date{Graph Theory, Algorithms and Applications, Erice, 2014\\[2em]
+% {\footnotesize Acknowledgement: This work is}
+% 
+}
+
+
+\begin{document}
+
+
+
+
+
+\begin{frame}[plain]
+
+\titlepage
+\vspace{-1cm}
+	    \begin{center}
+		\includegraphics[width=0.3\linewidth]{./pics/mpilogo.jpg}
+	    \end{center}
+\end{frame} 
+
+% \begin{frame}
+%     \frametitle{Outline}
+%     \tableofcontents
+% \end{frame} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Physarum Computing} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Physarum Polycephalum}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \frametitle{True slime molds in a nutshell} 
+
+
+ %\vspace{0cm}
+
+\begin{columns}
+\begin{column}{4.6cm}
+
+\begin{overprint}
+
+  
+	\begin{block}{Physarum Polycephalum:}
+	  \begin{itemize}
+	   \item<2> Unicellular organism with many nuclei
+	   \item<3> Intricate foraging strategy
+	   \item<4> Networks distribute protoplasm
+	   
+	  \end{itemize}
+	\end{block}
+
+
+\end{overprint}
+
+\end{column}
+
+\begin{column}{5cm}
+\begin{overprint}
+
+
+\testbox{
+     \begin{minipage}[t]{5 cm}
+
+\begin{figure}[h]
+ 
+     \begin{center}
+      \testbox{\includegraphics[angle=0,clip=true,width= 1.6\onethird, trim = 0 0 0 0]<1>{./pics/tree_of_life.png}}
+      \testbox{\includegraphics[angle=0,clip=true,width= 1.6\onethird, trim = 0 0 0 0]<2>{./pics/physarum_forest.jpg}}
+      \testbox{\includegraphics[angle=0,clip=true,width= 1.6\onethird, trim = 0 0 0 0]<3>{./pics/physarum_exploring_tree_2.jpg}}
+      \testbox{\includegraphics[angle=0,clip=true,width= 1.5\onethird, trim = 0 0 0 0]<4>{./pics/physarum.jpg}}
+     \end{center}
+
+\end{figure}
+     \end{minipage} }
+
+\testbox{
+     \begin{minipage}{5 cm}
+      \begin{center}
+
+	\tiny{Images courtesy Prof. Tetsuo Ueda, Sapporo University, Japan.}
+	
+
+      \end{center}
+     \end{minipage} }
+
+
+
+
+
+
+\end{overprint}
+\end{column}
+\end{columns}
+
+\vspace{-1cm}
+
+\centering
+	\begin{alertblock}{\underline{Intelligent behavior:}}
+	  Physarum can adapt to various environmental conditions very efficiently. This hints at an underlying optimization process.
+	\end{alertblock}
+
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Modelling Physarum}
+
+\begin{frame}
+       \frametitle{A basic feed-back mechanism describing Physarum} 
+   
+       \begin{figure}
+        
+      
+
+	    \includegraphics[angle=0,clip=true,width=\textwidth, trim = 0 0 0 0]{./pics/model_new.pdf}
+	 
+	    \vspace{1cm}
+	    
+      \begin{center}
+      \caption{Veins/edges carrying a large amount of flow (red) are \alert{{\bf reinforced}} while all others (black) are 
+	      \textcolor{arrowblue}{{\bf minimized}}.}
+      \end{center}
+
+      \end{figure}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{A dynamic evolution process {\footnotesize(Ito, Johannson, Nagagaki, Tero, 2011)}} 
+
+	Let $G = (V,E)$ be a graph. For every edge $e \in E$ define:
+	     
+	\begin{itemize}
+	  \item $x_e(t)$ as the time-dependent capacity. 
+	  \item $l_e$ as the constant edge-length. 
+	  \item $a_e$ as the constant edge-reactivity. 
+	  \item $r(t) = a_e l_e / x_e(t)$ as the time-dependent resistance.
+	\end{itemize}  
+
+        In addition, let $q_e(r_e(t))$ denote the electric flow over an edge $e$. 
+
+	  \begin{alertblock}{\underline{Evolution equation for $x_e(t)$:}}
+	  
+	  \vspace{-0.5cm}
+	  \begin{equation}  
+	    \dot{x}_e(t) = |q_e(r(t))| - a_e x_e(t)  \nonumber
+	  \end{equation}
+	  \end{alertblock}
+ 
+    
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{An electric analogy} 
+
+	Let $p_u(t)$ be the electric potential at node $u$ at time $t$. 
+	
+	\begin{alertblock}{\underline{Flow $q_e$ on edge $e = \{u,v\}$:} \textcolor{Gray}{(Ohm's Law)} }
+	  \begin{center}
+	  \begin{tabular}{ccc}
+	 
+
+	 
+	    $q_e = (\frac{a_e l_e}{  x_e})^{-1} (p_u - p_v )$ & $\quad $ & \textcolor{Gray}{$I = R^{-1} U $} \\
+	 
+	 
+	  \end{tabular}
+	  \end{center}
+	\end{alertblock}
+
+	
+	\begin{alertblock}{\underline{Flow conservation:} \textcolor{Gray}{(Kirchhoff's Current Law)}}
+	  \begin{center}
+	  \begin{tabular}{ccc}
+	 
+
+	 
+	    $\sum\limits_{e = \{u,v\} \in E} q_e = b_u $ & $\quad $ & \textcolor{Gray}{$\sum\limits_{k} I_k = 0$} \\
+	 
+	 
+	  \end{tabular}
+	  \end{center}
+	\end{alertblock}
+
+	Setting $b_s = - b_t = 1$ as well as $ b_u = 0$ amounts to sending one unit of flow/current from source node $s$ to sink node $t$.
+
+
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{A minimal example}
+
+\begin{frame}
+    \frametitle{A minimal example ($a_1 = a_2 = 1$)} 
+      
+      \tikzstyle{vertex}=[circle,fill=black!25,minimum size=15pt,inner sep=0pt]
+      \tikzstyle{edge} = [draw,thick,-]
+      \tikzstyle{weight} = [font=\small]
+     
+
+\begin{figure}[ht]
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+	  \begin{equation}  
+	    \dot{x}_e = |q_e| - x_e  \nonumber
+	  \end{equation}
+
+\label{fig:figure1}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+ \begin{tikzpicture}[scale=0.8, auto,swap]
+      % draw the vertices
+      \foreach \pos/\name in {{(0,2)/s}, {(3,2)/t}}
+	  \node[vertex] (\name) at \pos {$\name$};
+      % Connect vertices with edges and draw weights
+    
+      
+      \foreach \source/ \dest /\weight in {s/t/l_1}
+	  \path[edge] (\source) to[bend left] node[weight] {$\weight$} (\dest);
+      
+      \foreach \source/ \dest /\weight in {s/t/l_2}
+	  \path[edge] (\source) to[out=-80,in=-100] node[weight] {$\weight$} (\dest);
+      
+
+      
+      \end{tikzpicture}
+
+\label{fig:figure2}
+\end{minipage}
+\end{figure}
+
+ \vspace{-0.75cm}
+
+      \begin{equation}
+	\frac{d}{dt} (x_1 + x_2) = |\underbrace{q_1 + q_2}_{1}| - (x_1 + x_2) = 1 - (x_1 + x_2) \nonumber
+      \end{equation}
+
+     
+  
+       Condition \alert{$\dot{x} = 0$ holds for equilibrium points}, thus $(x_1+x_2) \to 1$.
+       
+%        Let $x_1(0) = x_2(0) = \frac{1}{2}$ and $l_1 < l_2$.
+
+
+ \vspace{-0.75cm}     
+  
+      \begin{equation}
+	\left.\begin{aligned}
+ 	 l_1 & < l_2 \quad \text{and} \quad x_1(0)  = x_2(0) = \frac{1}{2} \\
+        r_e & = \frac{l_e}{x_e}& \Rightarrow \quad r_1 < r_2 \quad \\
+        q_e & = r_e^{-1} (p_s - p_t )& \Rightarrow \quad q_1 > q_2 \quad
+       \end{aligned}
+	\right\}
+	\quad q_1 > \frac{1}{2} > q_2 \nonumber
+       \end{equation}
+
+      Thus $x_1 \to 1$ and simultaneously $x_2 \to 0$ for large $t$.
+
+
+
+
+
+
+     
+
+      
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Overview of results}
+
+\begin{frame}
+    \frametitle{Overview of convergence results} 
+
+     \begin{center}
+	  
+	 
+
+	  \begin{tabular}{ll}
+% 	   \toprule  
+	   Continuous:		& $\dot{x}_e(t) = f(q_e) - a_e x_e(t)$ \\
+	   Discretized: & $x_e(t+h) = x_e(t) + h* \cdot [ f(q_e) - a_e x_e(t) ] + O(h^2) $ \\ 
+% 	  \bottomrule
+	  \end{tabular}
+  
+	  \vspace{0.5cm}
+
+	  \begin{tabular}{cccc}
+	  \toprule
+	
+	
+		Model	  & $f(q_e)$	 	& $a_e = 1$ & $ a_e >0$ \\
+	  \midrule
+	  Continuous      & $|q_e|$     &  Bonifaci et al. (2012) 	& \alert{Open}   \\
+			  & $q_e$       & Ito et al. (2011) 		& \textbf{\textcolor{OliveGreen}{Proof}} \\
+	  Discretized     & $|q_e|$     & \textbf{\textcolor{OliveGreen}{$(1+\epsilon)$-approx.}}  & \textbf{\textcolor{OliveGreen}{$(1+\epsilon)$-approx.}}\\
+			  & $q_e$	&  \textbf{\textcolor{OliveGreen}{Proof}}  & \alert{Open}\\		\\
+	  \bottomrule
+	  \end{tabular}
+
+      \textcolor{OliveGreen}{\footnotesize{Joined work with: L. Becchetti, V. Bonifaci, A. Karrenbauer, K. Mehlhorn (ICALP 2013)}}
+	  
+
+      \end{center}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Sketch of proof}
+
+\begin{frame}
+    \frametitle{Distinct equilibria correspond to distinct paths} 
+
+	\begin{block}{\underline{Assumptions:}}
+	 \begin{enumerate}
+	 \item Distinct $s-t$ paths have distinct lengths
+	 \item $x(0) > 0$
+	 \item $\textbf{1}^{S}_{T} \cdot x(0) \ge \textbf{1}^{T}_{0} \cdot x(0) = 1 $
+	\end{enumerate}
+	\end{block}
+
+	
+
+
+	\begin{alertblock}{\underline{Lemma:} }
+	An equilibrium point of the evolution equation is a vector $x \in \mathbb{R}_{+}^{E}$ such that $\dot x = 0$. By assumption there are a finite
+        number of such points. Every equilibrium point corresponds to a distinct s-t path and vice versa.
+	\end{alertblock}
+
+
+	
+
+	
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{frame}
+    \frametitle{ Finding equilibria via a Lyapunov function } 
+
+	
+	\begin{alertblock}{\underline{Goal:} Track energy dissipation $\eta$ s.t. flow conservation}
+	 \center
+	  $\eta =  \sum\limits_{e  \in E} r_e q_e^2 = p_s - p_t = q^T R q$ 
+
+	\end{alertblock}
+
+
+
+	\begin{block}{Lyapunov function $V$:}
+	  \center
+	  $V = l^{T} x = \sum\limits_{e  \in E} l_e x_e = \sum\limits_{e  \in E} r_e x_e^2 = x^T R x$ 
+	 
+	\end{block}
+
+	\begin{block}{Properties of $V$:}
+	  \center
+	 \begin{tabular}{llll}
+% 	   \toprule  
+	   Properties:		& 1.) $V \ge 0$ & 2.) $\dot V \le 0$ & 3.) $\dot V = 0 \iff \dot x = 0$ 
+% 	  \bottomrule
+	  \end{tabular}
+	 
+	\end{block}
+	
+
+	
+	  
+
+	\begin{alertblock}{\underline{Lemma:} }
+	The energy dissipation $\eta$ is bounded from above by $V$.
+	\end{alertblock}
+
+
+
+	
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{frame}
+    \frametitle{Shortest paths enjoy minimum infrastructure cost} 
+
+	\begin{alertblock}{\underline{Theorem:} Convergence for the continuous model:}
+	  As $x(t)$ approaches a stationary point $\eta(t)$ goes to the length of the corresponding shortest path.
+	\end{alertblock}
+
+	The proofs for the discretized version follow a similar approach, except the development of $V(t)$ and $\eta(t)$ is tracked in discrete 
+        steps in terms of $\epsilon$.
+
+	\begin{alertblock}{\underline{Theorem:} Convergence for the discrete model:}
+	    Physarum yields an $\epsilon$-approximation for undirected case in $\mathcal{O}( nL \log(nL) / \epsilon^3)$ iterations.
+	\end{alertblock}
+
+
+	
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Discussion of the model}
+
+\begin{frame}
+    \frametitle{Discussion of the model } 
+
+
+	\begin{alertblock}{\underline{Pros:}}
+	 \begin{itemize}
+	  \item Captures Physarum's reactive behaviour
+	  \item Converges for general graphs under reasonable assumptions
+	  \item Treatment of more general network flow problems might be possible
+	 \end{itemize}
+	\end{alertblock}
+
+
+	\begin{alertblock}{\underline{Cons:}}
+	 \begin{itemize}
+	  \item Hopelessly impractical compared to methods like Dijkstra
+	  \item Severe oversimplification of real Physarum
+	      \begin{itemize}
+	       \item does not capture protoplasmic flow behaviour correctly
+	       \item does not model thickness/biochemical oscillations
+	       \item does not model synchronization
+		
+	      \end{itemize}
+
+	 \end{itemize}
+	\end{alertblock}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Future directions}
+
+\begin{frame}
+    \frametitle{Multiple food sources $\dots$} 
+
+ 
+\begin{figure}[h]
+ 
+     \begin{center}
+   
+      \testbox{\includegraphics[angle=0,clip=true,width= 1.6\onethird, trim = 0 0 0 0]<2>{./pics/physarum_tokyo_steps.jpg}}
+      \testbox{\includegraphics[angle=0,clip=true,width= 1.6\onethird, trim = 0 0 0 0]<3>{./pics/physarum_tokyo.jpg}}
+      
+     
+     \end{center}
+
+       \tiny{Tero et al. 2010. Rules for Biologically Inspired Adaptive Network Design.}
+
+\end{figure}
+   
+\end{frame}
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \subsection{Future directions}
+% 
+% \begin{frame}
+%     \frametitle{Exploring synchronisation $\dots$} 
+% 
+% 
+%     \begin{alertblock}{\underline{Hypothesis:} Physarum behaves like Kuramoto oscillators  }
+% 
+%      
+% 
+%  
+%       
+%      
+%    
+% 
+% \begin{figure}
+% 
+% 
+% \begin{minipage}{0.45\linewidth}
+% 
+%     \begin{equation}
+% 	\dot \phi_u(t) = w_u + \sum\limits_{v=1}^{V} k_{uv} sin[ \phi_u(t) - \phi_v( t- \tau_{uv} ) ] \nonumber
+%       \end{equation}
+% 
+%     \begin{center}
+%       \begin{tabular}{cc}
+% % 	   \toprule  
+% 	   Coupling $k_{uv}$ & Time delay $\tau_{uv}$ \\
+% 	   $\propto x_e$ & $ \propto \frac{1}{v_{wave}} $ \\ 
+% 	   $ \propto \frac{1}{l_e} $ & $ \propto l_e $ \\ 
+% % 	  \bottomrule
+% 	  \end{tabular}
+%     \end{center} 
+% \end{minipage}
+% \hspace{0.84cm}
+% \begin{minipage}{0.45\linewidth}
+% \centering
+% \includegraphics[angle=0,clip=true,width=0.7\linewidth, trim = 275 0 0 0]{./pics/model_new.pdf}
+% \end{minipage}
+% 
+% \end{figure}
+% 
+%  \end{alertblock}
+% 
+% 
+%     \begin{block}{\underline{Possible approaches:}}
+%       \begin{itemize}	      
+% 	       \item Fix $l_e$ for a graph. Find $x_e$ s. t. synchronisation is optimal.
+% 	       \item Fix $x_e$ for a graph. Find $l_e$ s. t. synchronisation is optimal.	
+% 	       \item $\dots$
+%       \end{itemize}
+%     \end{block}
+% 
+%    
+% \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{The Confinement problem} 
+% 
+% \begin{frame}
+%     \frametitle{The confinement problem revisited} 
+% 
+% 
+%     \emph{\underline{Experimental fact:}} 
+%     At high energies hadrons undergo a deconfining phase transition and form a 
+%     quark-gluon plasma.
+% 
+%     \emph{\underline{Question:}} 
+%     How can this phenomenon be understood in theory?
+% 
+% 
+%     \begin{block}{Computational physics approach:}
+% 
+%     
+% 
+%     \begin{enumerate}
+%      \item Choose a theoretical framework $\longrightarrow$ Lattice Gauge Theory.
+%      \item Define a useful partition function $\longrightarrow$ $Z_{lat}$.
+%      \item Simulate the system $\longrightarrow$ Numerical methods.
+%      \item Analyze numerical raw data $\longrightarrow$ Obtain observables.
+%      \item Find a meaningful interpretation of the results.
+%     \end{enumerate}
+% 
+%     \end{block}
+%     
+% %     \emph{Conclusion:} Unless $\mathbf{P} = \mathbf{NP}$, no polynomial time exact solution for the problem exists.
+% 
+% 
+% 
+% 
+% 
+% 
+% \end{frame}
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \section{Lattice gauge theory in a nutshell} 
+% 
+% \begin{frame}
+%     \frametitle{Lattice Gauge Theory in a nutshell} 
+% 
+%       \underline{Lattice Gauge Theory}
+% 	\begin{itemize}
+% 	  \item Space-time is discretized on a \DIM{(3+1)} lattice $\Lambda$.
+% 	  \item Each lattice site / link corresponds to a physical field specified by the underlying gauge theory.
+% 	  \item A configuration $U$ specifies the values of all fields on the lattice $\longrightarrow$ ``snapshot'' 
+% 		of the system.
+% 	\end{itemize}  
+% 
+%       \begin{center}
+% 	  \testbox{\includegraphics[angle=0,clip=true,width= 1.9\onethird, trim = 0 0 0 0]{./pics/lattice.png}}
+%          \testbox{\includegraphics[angle=0,clip=true,width= 1.2\onethird, trim = 100 46 113 37]{./pics/potts_J=0_7_1.pdf}}
+% 	
+%       \end{center}
+% 
+%       
+% 
+% 
+% 
+% \end{frame}
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \section{The partition function in a nutshell} 
+% 
+% \begin{frame}
+%     \frametitle{The partition function in a nutshell} 
+% 
+%      
+% 
+% 
+%       \underline{The lattice partition function $Z_{lat}$:}
+% 	\begin{equation}
+% 	  Z_{lat} = \int \e^{-S_G[U]} \MEAS{U}  \nonumber
+% 	\end{equation}  
+% 
+%         \begin{equation}
+% 	   S_{G}[U] = \frac{2N}{g^2} \sum_{n \in \Lambda} \sum_{\mu < \nu} \Re \mbox{tr}  \left[ \hat{1} - U_{\mu \nu}(n) \right] \nonumber
+% 	\end{equation}  
+% 
+% 	\begin{equation}
+% 	 \MEAS{U} = \prod_{n \in \Lambda} \prod_{\mu = 1}^{4} \int \mathrm{d}U_{\mu}(n) \nonumber
+% 	\end{equation}  
+% 
+% 	\emph{\underline{Problem:}}	
+% 	  Solving this severely multidimensional integral over all possible field configurations is not possible in closed form.
+% 	
+% 
+% 
+% 
+% \end{frame}
+% 
+% 
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % \section{Approximation of the Problem} 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Markov Chain Monte Carlo}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \begin{frame}
+%     \frametitle{Markov Chain Monte Carlo} 
+% 
+%     \underline{Expectation value $\EXP{\hat{O}}$ of an observable:}
+% 
+%     \begin{equation}
+%       \EXP{\hat{O}} = \frac{1}{Z_{lat}} \ \int e^{-S_G[U]} \ O[U] \ \MEAS{U}  \approx \frac{1}{n} \sum_{i=1}^{n} O[U_i] \nonumber
+%     \end{equation}
+% 
+%     \textcolor{red}{ \emph{Key idea:} } $\EXP{\hat{O}}$ can be approximated by computing $\hat{O}[U_i]$ using a series of gauge-field configurations
+%     $U_i$ distributed according to the Boltzmann-distribution $e^{-S_G[U]}$.
+% 
+%     \underline{Markov Chain Monte Carlo (MCMC):}
+% 
+%     Describes a class of algorithms which exploit stochastic processes to produce a series of samples that
+%     mimic a given target probability distribution. 
+%     
+% 
+% 
+% 
+% \end{frame}
+% 
+% 
+% % \section{Approximation of the Problem} 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{Simulation of the system}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \begin{frame}
+%     \frametitle{Simulating the system} 
+% 
+%    
+%    
+%     \begin{block}{Simulating a Lattice Gauge Theory:}
+% 
+%       \begin{enumerate}
+%        \item Lattice $\longrightarrow$ a plain \DIM{(3+1)} array.
+%        \item Set $T$ $\longrightarrow$ determines the initial state the system is in.
+%        \item Algorithm $\longrightarrow$ MCMC produces the $U_i$ for calculating $\EXP{\hat{O}}$.
+%        \item Repeat steps (2) and (3) to probe the system's behaviour at different $T$.
+%       \end{enumerate}
+% 
+%      
+%     \end{block}
+% 
+% 
+%   
+%     
+% 
+% 
+% 
+% \end{frame}
+% 
+% 
+% % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % 
+% \subsection{MCMC visualized}
+% 
+% \begin{frame}
+%     \frametitle{MCMC visualized } 
+% 
+% 
+%  \vspace{0cm}
+% 
+% \begin{columns}
+% \begin{column}{4.5cm}
+% 
+%  Sample configurations $U_i$:
+% 
+% \begin{overprint}
+% 
+% \begin{itemize}
+% 
+%   \item<1-> $T = 0.1 T_c $ \\sub-critical phase.
+%   \item<4-> $T \approx T_c $ \\critical phase.
+%   \item<7-> $T = 1.5 T_c $ \\super-critical phase.
+% 
+% % \item<2-> Transformation of the problem instance.
+% % \item<3-> Partition the instance using a quadtree.
+% % \item<4-> Place portals on grid lines.
+% % \item<5-> Compute the smallest salesman tour.
+% % \item<6-> Trim the edges and output the result.
+% \end{itemize}
+% % \vspace{3cm} 
+% 
+% 
+% \end{overprint}
+% 
+% \end{column}
+% 
+% \begin{column}{4cm}
+% \begin{overprint}
+% 
+% 
+% \testbox{
+%      \begin{minipage}[t]{5 cm}
+% 
+% \begin{figure}[h]
+%  
+%      \begin{center}
+%       \testbox{\includegraphics[angle=0,clip=true,width= 1.3\onethird, trim = 114 46 113 37]<1>{./pics/potts_J=0_7_1.pdf}}
+%       \testbox{\includegraphics[angle=0,clip=true,width= 1.3\onethird, trim = 114 46 113 37]<2>{./pics/potts_J=0_7_2.pdf}}
+%       \testbox{\includegraphics[angle=0,clip=true,width= 1.3\onethird, trim = 114 46 113 37]<3>{./pics/potts_J=0_7_3.pdf}}
+%       \testbox{\includegraphics[angle=0,clip=true,width= 1.3\onethird, trim = 114 46 113 37]<4>{./pics/potts_J=1_0_1.pdf}}
+%       \testbox{\includegraphics[angle=0,clip=true,width= 1.3\onethird, trim = 114 46 113 37]<5>{./pics/potts_J=1_0_2.pdf}}
+%       \testbox{\includegraphics[angle=0,clip=true,width= 1.3\onethird, trim = 114 46 113 37]<6>{./pics/potts_J=1_0_3.pdf}}
+%       \testbox{\includegraphics[angle=0,clip=true,width= 1.3\onethird, trim = 114 46 113 37]<7>{./pics/potts_J=1_2_1.pdf}}
+%       \testbox{\includegraphics[angle=0,clip=true,width= 1.3\onethird, trim = 114 46 113 37]<8>{./pics/potts_J=1_2_2.pdf}}
+%       \testbox{\includegraphics[angle=0,clip=true,width= 1.3\onethird, trim = 114 46 113 37]<9>{./pics/potts_J=1_2_3.pdf}}
+%      \end{center}
+% 
+% \end{figure}
+%      \end{minipage} }
+% 
+% \testbox{
+%      \begin{minipage}{5 cm}
+%       \begin{center}
+% 
+% % 	\begin{itemize}
+% % 
+% 	\item pixel $\widehat{=}$ interacting gauge fields $U(n)$.
+% 	
+% %     
+% % 	\end{itemize}
+% 	
+% 	
+% 
+%       \end{center}
+%      \end{minipage} }
+% 
+% 
+% 
+% 
+% 
+% 
+% \end{overprint}
+% \end{column}
+% \end{columns}
+% 
+% 
+% \centering
+%  \small{Illustrations courtesy of H. Antlinger.}
+% 
+% 
+% 
+% \end{frame}
+% 
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{The order parameter of the confinement transition}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \begin{frame}
+%     \frametitle{The order parameter of the confinement transition} 
+% 
+%    
+%     \begin{centering}
+%     \begin{figure}
+%      
+%    
+% 
+% 
+%      \testbox{\includegraphics[angle=90,clip=true,width= 1.7\onehalf, trim = 0 0 0 0]{./pics/results/203040x8_abs_pol.pdf}}
+% 
+%      \FIGURE{} The order parameter $<|P|>$ as a function of $T/T_c$.
+%     
+%     \end{figure}
+%     \end{centering}
+% 
+% \end{frame}
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{A novel approach to confinement: Clustering}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \begin{frame}
+%     \frametitle{A novel approach to confinement} 
+% 
+% 
+% 
+% 
+% 
+%      \begin{centering}
+%     \begin{figure}
+%      
+%    
+% 
+% 
+%      \testbox{\includegraphics[angle=0,clip=true,width= \onethird, trim = 100 46 113 37]{./pics/potts_J=0_7_1.pdf}}
+%      \testbox{\includegraphics[angle=0,clip=true,width= \onethird, trim = 100 46 113 37]{./pics/potts_J=1_0_1.pdf}}
+%      \testbox{\includegraphics[angle=0,clip=true,width= \onethird, trim = 100 46 113 37]{./pics/potts_J=1_2_1.pdf}}
+%       
+% 	 
+%     \end{figure}
+% 
+%     \end{centering}
+% 
+%     \emph{\underline{Question:}} 
+%     Is there a correspondence between the behaviour of clusters and the thermal phase transition
+%     of confinement?
+% 
+%     \emph{ \underline{Answer:}} 
+%     Under certain conditions a cluster starts to percolate precisely at $T_c$. 
+% 
+%     \emph{ \underline{Percolation:}} 
+%     A cluster is said to be percolating if it connects two adjacent lattice boundaries. 
+% 
+% 
+% 
+% \end{frame}
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{The cluster-search problem}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% 
+% \begin{frame}
+%     \frametitle{Clustering on the lattice} 
+% 
+% 
+%     \underline{Clustering criterion:}
+%     A cluster is an agglomeration of nearest-neighbour lattice sites (pixel) with the same phase (color).
+% 
+% 
+% 
+% \begin{columns}
+% \begin{column}{4.5cm}
+% \begin{overprint}
+% 
+% 
+% 
+%     \emph{\underline{Questions:}}
+%     \begin{itemize}
+%      \item Are there percolating clusters?
+%      \item How many clusters per phase are there?
+%      \item What are their respective sizes?
+%      \item \dots
+%     \end{itemize}
+% 
+%     \end{overprint}
+% 
+% \end{column}
+% 
+% \begin{column}{5cm}
+% \begin{overprint}
+% 
+% \begin{figure}[h]
+%  
+%      \begin{center}
+%       \testbox{\includegraphics[angle=0,clip=true,width= 1.2\onethird, trim = 114 46 113.5 37]{./pics/potts_J=1_2_2.pdf}}
+%      \end{center}
+% 
+% \end{figure}
+%     
+% \end{overprint}
+% \end{column}
+% \end{columns}
+% 
+% 
+%   \emph{\underline{Solution method:}} The Union-Find algorithm.
+%   
+% 
+%     
+%     
+% \end{frame}
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{The UNION-FIND algorithm}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \begin{frame}
+%     \frametitle{Disjoint-set forests and the Union-Find Algorithm} 
+% 
+%       \underline{Goal:} Partition a given set (lattice sites) into equivalence classes (clusters) 
+%       according to some equivalence relation (clustering criterion).
+% 
+%       \underline{Disjoint-Tree-Forest:}
+%       \begin{itemize}
+%        \item Each disjoint set is represented by a tree data structure. 
+%        \item All child-nodes hold a reference to their respective parents.
+%        \item The root of the tree is the unique representative of the set.
+%       \end{itemize}
+% 
+%       \underline{Supported key operations:}
+%       \begin{itemize}
+%        \item MAKE-SET($x$): Creates a singleton tree containing $x$.
+%        \item FIND($x$).
+%        \item UNION($x,y$).
+%       \end{itemize}
+% 
+% \end{frame}
+% 
+% 
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    
+% 
+% 
+% \begin{frame}
+%    \frametitle{The UNION and FIND operations} 
+% 
+% \begin{columns}
+% \begin{column}{5cm}
+% \begin{overprint}
+% 
+% 
+% 
+%     \underline{FIND($x$):}
+%     Returns the root node of the tree containing element $x$.
+% 
+%    
+% 
+%     \end{overprint}
+% 
+% \end{column}
+% 
+% \begin{column}{5cm}
+% \begin{overprint}
+% 
+% \begin{figure}[h]
+% 
+%      \begin{center}
+%       \testbox{\includegraphics[angle=0,clip=true,width= 0.8\onethird, trim = 0 0 0 0]{./pics/AppendixA/rooted_tree2.jpg}}
+%      
+%       \FIGURE{} FIND($7$) = $3$.
+%      \end{center}
+% 
+% \end{figure}
+%     
+% \end{overprint}
+% \end{column}
+% \end{columns}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{columns}
+% \begin{column}{5cm}
+% \begin{overprint}
+% 
+% 
+% 
+%     \underline{UNION($x,y$):}
+%     Merges the tree containing element $x$ with the tree containing element $y$.
+% 
+%    
+% 
+%     \end{overprint}
+% 
+% \end{column}
+% 
+% \begin{column}{5cm}
+% \begin{overprint}
+% 
+% \begin{figure}[h]
+% 
+%      \begin{center}
+%       \testbox{\includegraphics[angle=0,clip=true,width= 2.1\onethird, trim = 0 0 0 0]{./pics/AppendixA/union_operation.jpg}}
+%      
+%       \FIGURE{} UNION($3,A$).
+%      \end{center}
+% 
+% \end{figure}
+%     
+% \end{overprint}
+% \end{column}
+% \end{columns}
+%     
+% 
+% 
+% \end{frame}
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    
+% 
+% 
+% \begin{frame}
+%    \frametitle{Improvements}
+% 
+%     \underline{Basic idea:} The more balanced and flat the trees are, the more efficient FIND($x$) operates on them.
+% 
+%     \underline{Heuristics:}
+%     \begin{itemize}
+%      \item UNION by rank: Lower ranked trees are merged into higher ranked trees.
+% % 	  
+% % 	  \begin{itemize}
+% % 	    \item Rank is unchanged or increased by at most 1.
+% % 	    \item Reduces the time FIND takes to return the root-node.
+% % 	  \end{itemize}
+% 
+%      \item Path-compression: All child-nodes traversed by FIND($x$) are redirected to point at the root-node.
+% 
+% % 	\begin{itemize}
+% % 	 \item Reduces the time FIND will take in subsequent calls.
+% % 	\end{itemize}
+% 
+%     \end{itemize}
+% 
+%     \underline{Amortized costs:}
+%     \begin{itemize}
+%      \item FIND($x$): $\mathcal{O}( \ln n) $.
+%      \item UNION($x,y$): $\mathcal{O}(1)$.
+% 
+%     \end{itemize}
+% 
+%   Equipped with these heuristics UNION-FIND takes an amortized $\mathcal{O}(t \, \alpha(t,m))$, which is considered optimal.
+%     
+% 
+% 
+% \end{frame}
+% 
+% 
+% % 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{Putting the pieces together}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% 
+% \begin{frame}
+%     \frametitle{ \dots back to the orignal problem } 
+%    
+%     \underline{Cluster search:}
+% 
+%       Using the UNION-FIND algorithm the configurations produced in the MCMC runs 
+%       can efficiently be processed to obtain expectation values of cluster properties.
+% 
+%     
+%     \underline{Percolation properties:}
+% 
+%       To check whether or not the confinement transition coincides with the onset of percolation 
+%       percolating clusters are identified on the lattice.
+% 
+% \end{frame}
+% % 
+% % 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Confinement and percolation}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \begin{frame}
+%     \frametitle{Confinement and percolation} 
+% 
+%     
+%      
+%     \begin{centering}
+%     \begin{figure}
+%      
+%    
+% 
+%      \testbox{\includegraphics[angle=90,clip=true,width= 1.7\onehalf, trim = 0 0 0 0]{./pics/results/40x6810_percolation_probability.pdf}}
+% 
+%      \FIGURE{} The percolation probability $<P>$ as a function of $T/T_c$.
+%     
+%     \end{figure}
+%     \end{centering}
+% 
+%  
+%   
+% 
+% 
+% \end{frame}
+% % 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Summary and conclusions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \frametitle{Summary and conclusions}   
+
+    \begin{alertblock}{}
+    \begin{itemize}
+     \item A simple model of the behavior of Physarum Polycephalum can be used to compute shortest paths.
+     \item Many open questions regarding possible improvements/extensions suitable for computing $\longrightarrow$ network flows.
+     \item Teaser: Model and investigate Physarum's synchronization capabilities based on time delayed oscillators.
+     \item Understanding Pysarum challenges and fascinates Computer Scientist, Physicist and Biologist alike.
+    \end{itemize}
+    \end{alertblock}
+ 
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Acknowledgments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \frametitle{Acknowledgments}   
+
+    \begin{figure}
+        
+       \begin{center}
+
+	    \includegraphics[angle=0,clip=true,width=0.5\textwidth, trim = 0 0 0 0]{./pics/KIST_Logo.jpeg}
+	
+	   
+
+      \end{center}
+
+      \end{figure}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Sketch of Proof} 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \begin{frame}
+%     \frametitle{Correctness of the PTAS} 
+% 
+% %     The correctness of the PTAS relies on the following theorem.
+% 
+%     \begin{block}{Structure Theorem}
+%      Given an $(a, b)$-shifted dissection,
+%      there exists a $(1 + \frac{1}{c})$-approximate 
+%      salesman tour with a probability of at least $1/2$, if it crosses the boundary of each square in the shifted quadtree at most $2$ times and does so 
+%       always at portals.
+% 
+%     \end{block}
+% 
+%     The proof of the Structure Theorem is intricate, but the basic ingredients 
+%     follow from the truth of the following statements:
+%     
+%     \begin{itemize}
+%      \item It is not too expensive to ``bend'' the optimal tour into a portal-respecting tour (Portal-respecting Lemma).
+%      \item It is not too expensive to convert a portal-respecting tour into an $2$-light portal respecting tour (Patching Lemma).
+%     \end{itemize}
+% 
+% 
+% 
+% 
+% 
+% 
+% \end{frame}
+% 
+% \section{Some Practical Considerations} 
+% 
+% \begin{frame}
+%  
+% \frametitle{Some Practical Considerations}
+% 
+%  
+% 
+% 	  \emph{Pro features:}
+% 	  \begin{itemize}
+% 	   \item Can be combined with recent ``branch-and-cut'' methods to boost performance.
+% 	   \item Can be parallelized.
+% 	  \end{itemize}
+% 
+% 
+% 	  \emph{Contra features:}
+% 	  \begin{itemize}
+% 	   \item Cannot compete with other heuristics for large problem instances.
+% 	   \item Runtime depends exponentially on $c$ even in $\mathbb{R}^2$.
+% 	  \end{itemize}
+% 
+%         
+% 	  \emph{Remark:} A comparison of Arora's PTAS and the Concorde TSP solver can be found here \cite{Rodecker}.
+% 	  
+% 
+% \end{frame}
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Central ideas of Arora's PTAS Approach} 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% 
+% \begin{frame}
+%     \frametitle{Summary} 
+% 
+%     \begin{block}{Central ideas of Arora's PTAS}
+%      \begin{itemize}
+%       \item Map the given problem instance to a coarser instance, depending on the error parameter.
+%       \item Apply some kind of geometric partition to subdivide the problem.
+%       \item Apply suitable restrictions and exploit the partition to rephrase the problem as a family of near-independent subproblems.
+%       \item Obtain an approximate solution by means of dynamic programming, combining sub-solutions in a ``divide and conquer''
+%       fashion.
+%      \end{itemize}
+% 
+%     \end{block}
+% 
+% %  The design of almost all known FPTAS’s and PTAS’s is based on the idea
+% % of trading accuracy for running time – the given problem instance is mapped
+% % to a coarser instance, depending on the error parameter ε, which is solved
+% % optimally by a dynamic programming approach. The latter ends up being an
+% % exhaustive search of polynomially many diﬀerent possibilities (for instance,
+% % for knapsack, this involves computing A(i, p) for all i and p). In most such
+% % algorithms, the running time is prohibitive even for reasonable n and ε. Fur-
+% % ther, if the algorithm had to resort to exhaustive search, does the problem
+% % really oﬀer “footholds” to home in on a solution eﬃciently? Is an FPTAS or
+% % PTAS the best one can hope for for an NP-hard problem? Clearly, the issue
+% % is complex and there is no straightforward answer.
+% 
+% 
+% \end{frame}
+% 
+% 
+% 
+% 
+% 
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% \begin{frame}[allowframebreaks]
+% \frametitle{References} 
+% 
+%  \bibliographystyle{springerrefs}
+%     \bibliography{papers}
+% 
+% \end{frame}
+% 
+% \begin{frame}[plain]
+%  
+% \end{frame}
+% 
+% % 
+% % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % \appendix
+% % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % 
+% % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % 
+% % \section{Scatter-plot at Tc}
+% % \begin{frame}
+% %     \frametitle{Spatially Averaged Polyakov Loop at $T_c$} 
+% % 
+% % 
+% % \end{frame}
+% % 
+% % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % \section{Size of the Largest Cluster}
+% % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % 
+% % \begin{frame}
+% %     \frametitle{Size of the Largest Cluster} 
+% % 
+% %           
+% % \end{frame}
+% % 
+% 
+\end{document}
+                                       

@@ -1,0 +1,167 @@
+
+
+
+\usepackage{etex}			% needed to resolve conflicts between booktabs and tikz
+\usepackage{tikz}
+\usepackage{verbatim}
+\usetikzlibrary{arrows,shapes}
+
+ %\usetheme{boxes}
+% \usecolortheme{lily}
+ %\usecolortheme{rose}
+
+ \usefonttheme{serif}
+
+\usepackage{lmodern}
+ \usepackage{graphicx}
+ \usepackage{multirow}				%enables multirow tables
+
+\usepackage{natbib}
+\bibpunct{[}{]}{,}
+
+\usepackage{epsfig}
+\usepackage{layout}
+
+\usepackage{booktabs}
+
+\setbeamercovered{transparent}
+\mode<presentation>
+
+
+
+
+
+ 
+\beamertemplatenavigationsymbolsempty %Navigationszeile auf jeder Folie unterdrücken
+
+
+
+
+
+
+\usepackage{ae,aecompl}				% fuer besseres pdf empfohlen
+%\usepackage{exscale}				% richtige Skalierung der Mathe Formeln. Does not work with tikz
+
+
+
+
+\usepackage[mathcal]{euscript}
+\usepackage{amsthm}				% adds theorems and lemmata
+
+
+
+\usepackage{dsfont}
+
+% \usepackage{fancyhdr}	
+
+
+% 
+% %******************************************************************************
+% %
+% % Fancyheaders
+% %
+% \usepackage{fancyhdr}					% Pagehead
+% \pagestyle{fancy}					% meine Kopfzeile
+% \fancyhf{}
+% % \fancyhead[RO]{\rm \nouppercase  \rightmark \qquad \rm \thepage }
+% % \fancyhead[LE]{  \thepage  \qquad \rm \nouppercase  \leftmark }
+% \fancyhead[RO]{\nouppercase  \rightmark}
+% \fancyhead[LE]{ \nouppercase  \leftmark }
+% 
+% \fancyfoot[OR]{  \thepage}
+% \fancyfoot[EL]{ \thepage }
+% 
+% % \renewcommand{\headrulewidth}{0.1pt}
+% 
+% \renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+% 
+% 
+% \renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+% 
+% 
+% \fancypagestyle{plain}{%
+% \fancyhf{} % clear all header and footer fields
+% \fancyfoot[RO,RE]{\thepage} %RO=right odd, RE=right even
+% \renewcommand{\headrulewidth}{0pt}
+% \renewcommand{\footrulewidth}{0pt}}
+% 
+% 
+% 
+% %
+% %******************************************************************************
+
+
+
+
+
+
+\usepackage{array}		%for readjusting the hight of lines in tables
+% \usepackage{longtable}
+
+\usepackage[german,english]{babel}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false}
+%
+\DeclareGraphicsExtensions{.eps, .jpg, .png, .sgv, .jepg}
+% \usepackage[subsection]{algorithm}
+% \usepackage{algorithmic,algorithmic-fix}
+\usepackage{listings}
+\lstset{ %
+language=C++,                   % the language of the code
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it's 1, each line 
+                                % will be numbered
+numbersep=5pt,                  % how far the line-numbers are from the code
+% showspaces=false,               % show spaces adding particular underscores
+% showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=bottomline,                   % adds a frame around the code
+% tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=t,                   % sets the caption-position to bottom
+% breaklines=false,                % sets automatic line breaking
+% breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+% title=\lstname,                 % show the filename of files included with \lstinputlisting;
+                                % also try caption instead of title
+% escapeinside={\%*}{*)},         % if you want to add a comment within your code
+% morekeywords={*,...}            % if you want to add more keywords to the set
+}
+
+
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+
+
+
+
+
+
+
+
+
+
+\usepackage{parskip}		%kills the default paragraph indenting and sets /parskip to some useful value automatically
+
+
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+% \usepackage{bbold}
+% \usepackage{dsfont}
+
+%Graphics and Videos
+
+
+
+
+%Graphics and Videos
+
+% \usepackage{movie15}
+
+
+
+

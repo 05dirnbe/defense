@@ -1,0 +1,14 @@
+speaker: Michael Dirnberger (mtd@mpi-inf.mpg.de)
+
+title: Physarum Computing: Slime On Shortest Paths
+
+abstract: The true slime mold Physarum Polycephalum is an interesting example of a biological system performing natural optimization. 
+Wet lab experiments have shown that this extraordinary unicellular organism, despite 
+lacking any form of brain or nervous system, is capable of solving various complex problems 
+using its highly optimized and decentralized foraging strategy. 
+
+In this talk I will introduce you to the world of slime molds and demonstrate what it is that they do best. I will
+show you how to exploit Physarum's efficiency in order to solve the well-known shortest-path problem. 
+Within a dynamical model based on a simple feed-back mechanism I present a proof that the slime will always converge to an optimal path.
+
+Keywords: Physarum Polycephalum, Natural Computing, Shortest-Path
