@@ -94,3 +94,15 @@
 \definecolor{arrowblue}{RGB}{105,105,255}
 \definecolor{resultgreen}{RGB}{246,255,213}
 \definecolor{resultgreenedge}{RGB}{0,128,0}
+
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
