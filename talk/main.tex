@@ -34,9 +34,7 @@
 \end{frame} 
 
 
-% \section{Part I: Natural Computing with P.~polycephalum}
-% \section{Part II: Networks formed by P.~polycephalum} 
-% \section{Part III: A distributed model of P.~polycephalum} 
+\section{Part I: Natural Computing with P.~polycephalum}
 
 \begin{frame}
     \frametitle{Natural Computing in a Nutshell} 
@@ -96,7 +94,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{A Magnificent Mold} 
+    \frametitle{Meet a Magnificent Mold} 
 
 	\begin{columns}
 	\begin{column}{4.6cm}
@@ -151,31 +149,88 @@
 
 	\centering
 		\begin{alertblock}{\underline{Key Experiments show:}}
-			Synchronisation, Maze Solving, Min/Max Behaviour
+			Distributed operation, Minimisation/Maximitation capabilities
 		\end{alertblock}
 \end{frame}
 
 \begin{frame}
     \frametitle{Natural Computing with \P} 
 
+	\begin{columns}
+	\begin{column}{4.6cm}
 
+	\begin{overprint}
 
-	\begin{itemize}
-	  \item Shortest path models
-	  \item Many body simulations, Voroni diagrams
-	  \item Light controlled of live Physarum (logic gates, transport network design)
-	\end{itemize}  
+		\begin{block}{Succes stories}
+		  \begin{itemize}
+		   \item<1> Positive feedback models
+		   \item<2> Many particle simulations/cellular automata 
+		   \item<3> Steering \P using light
+		  \end{itemize}
+		\end{block}
 
+	\end{overprint}
 
-	\begin{block}{Caveats:}
-		Distributed nature of \P and its networks has potential but is not sufficiently investigated.
-	\end{block}
+	\end{column}
+
+	\begin{column}{5cm}
+	\begin{overprint}
+
+	\testbox{
+	     \begin{minipage}[t]{5 cm}
+
+	\begin{figure}[h]
+	 
+	     \begin{center}
+	      \testbox{\includegraphics[angle=0,clip=true,width= 1.\onethird, trim = 0 0 0 0]<1>{./pics/shortest_path_model.pdf}}
+	      \testbox{\includegraphics[angle=0,clip=true,width= 1.\onethird, trim = 0 0 0 0]<2>{./pics/mst_agent.png}}
+	      \testbox{\includegraphics[angle=0,clip=true,width= 1.\onethird, trim = 0 0 0 0]<3>{./pics/container_states.png}}
+	     \end{center}
+
+	\end{figure}
+	     \end{minipage} }
+
+	\testbox{
+	     \begin{minipage}{5 cm}
+	      \begin{center}
+
+		\tiny{Images courtesy of Prof.~T.~Ueda.}
+		
+
+	      \end{center}
+	     \end{minipage} }
+
+	\end{overprint}
+	\end{column}
+	\end{columns}
+
+	\vspace{-1cm}
+
+	\centering
+		\begin{alertblock}{\underline{Caveat:}}
+			Distributed nature of \P has not been investigated in the context of Natural Computing.
+		\end{alertblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Towards distributed Natural Computing with \P} 
+
+    \begin{block}{Our aim:}
+    	Study the networks formed by \P in order to drive the development of a distributed model.
+    \end{block}
 
 	\begin{alertblock}{Our approach:}
-		Design and conduct experiments $\longrightarrow$ Network Extraction $\longrightarrow$  Network Analysis $\longrightarrow$  Network Modelling
+		\begin{itemize}
+			\item Obtain a large body of experimenta data
+			\item Process raw experimental data
+			\item Analyze network properties
+			\item Model the dynamics exhibited by \P
+		\end{itemize}
 	\end{alertblock}
-
 \end{frame}
+
+\section{Part II: Networks formed by P.~polycephalum} 
+% \section{Part III: A distributed model of P.~polycephalum} 
 
 \end{document}
                                        
