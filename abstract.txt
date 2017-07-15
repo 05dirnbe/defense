@@ -1,0 +1,3 @@
+Title: Preliminaries for Distributed Natural Computing Inspired by the Slime Mold Physarum Polycephalum
+
+Abstract: In my talk I will discuss the Slime Mold Physarum Polycephalum within the framework of Natural Computing. In particular I will report on our efforts to better understand the highly dynamic networks of this organism and our attempts to model its distributed nature. In this context I will present evidence that our promising model mimics key features of P. Polycephalum such as flow reversals and synchronisation. Finally, I will discuss the state of our work and suggest promising directions for future research.
