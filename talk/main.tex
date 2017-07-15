@@ -360,5 +360,131 @@
 
 \section{Part III: A distributed model of P.~polycephalum} 
 
+\begin{frame}
+    \frametitle{What we know about \P} 
+
+	\begin{block}{\underline{Desireable properties:}}
+	 \begin{itemize}
+	 	\item The \textbf{organism} operates in a fully distributed manner and requires no central control
+		\item The \textbf{organism} maintains a dynamic circulation of flow
+		\item The \textbf{organism} is robust against changes in topology
+		\item The \textbf{organism} has a degree of efficiency
+	 \end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What we want from a model of \P} 
+
+	\begin{block}{\underline{Desireable properties:}}
+	 \begin{itemize}
+	 	\item The \textbf{model} operates in a fully distributed manner and requires no central control
+		\item The \textbf{model} maintains a dynamic circulation of flow
+		\item The \textbf{model} is robust against changes in topology
+		\item The \textbf{model} has a degree of efficiency
+	 \end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Modelling the dynamics of \P} 
+
+    \underline{The goal:} Model the peristalsis that is central to all flow dynamics of \P.
+
+	\underline{The problem:} Hydrodynamics is extremely hard!
+
+	\begin{columns}
+	\begin{column}{4.6cm}
+
+	\begin{overprint}
+
+		\begin{block}{\emph{Solution: Go electric!}:}
+		  \begin{itemize}
+		   \item Augmented 3-element Windkessel model
+		   \item Peristaltic pumping is mapped to current controlled voltage sources
+		   \item Oscillatory dynamics mimics real flow patterns
+		  \end{itemize}
+		\end{block}
+
+	\end{overprint}
+
+	\end{column}
+
+	\begin{column}{5cm}
+	\begin{overprint}
+
+	\testbox{
+	     \begin{minipage}[t]{5 cm}
+
+	\begin{figure}[h]
+	 
+	     \begin{center}
+	      \testbox{\includegraphics[angle=0,clip=true,width= 1.6\onethird, trim = 0 0 0 0]{./pics/plasmodium_hand_drawing.png}}
+	     \end{center}
+
+	\end{figure}
+	     \end{minipage} }
+
+
+	\end{overprint}
+	\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Modelling vein segments - \Pes} 
+   
+
+	\begin{figure}
+	\centering
+	\begin{circuitikz}[american voltages]
+	\draw
+	  % rotor circuit
+	  (0,0) to [short, *-] (1,0)
+	  to [american controlled voltage source, cV=$u_p$] (2,0) % the pump
+	  to [short, i_=$i_p$] (3,0)
+	  to [R, l_=$R$] (4,0) % first R
+	  to [short] (4.5,0)
+
+	  (9,0) to [short, *-] (8,0)
+	  to [american controlled voltage source, cV^=$u'_p$] (7,0) % the pump
+	  to [short, i^=$i'_p$] (6,0)
+	  to [R, l^=$R$] (5,0) % snd R
+	  to [short] (4.5,0)
+	    
+	  (4.5,0) to [C, l_=$C$,i_=$i_C$,v^>=$u_{C}$] (4.5,-2)
+	  to [short,-*] (0,-2)
+	  
+	  (4.5,-2) to [short,-*] (9,-2)
+
+	  (0,0) to[open, v=$x$] (0,-2)
+
+	  (9.4,0) to[open, v=$y$] (9.4,-2)
+
+	  (4.5,-2) to (4.5,-2.0) node[ground] {};
+	  
+	\end{circuitikz}
+	% \caption[The basic \Pe]{Electrical model of a \P vein segment. The two resistors $R$ and the capacitor $C$ form the three-element Windkessel model~\cite{olufsen2004deriving}. The two current controlled voltage sources $u_p$ and $u_p'$ augment the model to include the effects of peristaltic pumping.}
+	% \label{fig:vein}
+	\end{figure}
+
+		\begin{figure}[h]
+		     \begin{center}
+		      \testbox{\includegraphics[angle=0,clip=true,width= 0.8\onehalf, trim = 0 0 0 0]{./pics/steady.pdf}}
+		      \testbox{\includegraphics[angle=0,clip=true,width= 0.8\onehalf, trim = 0 0 0 0]{./pics/transient.pdf}}
+		     \end{center}
+		\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\Pns}
+
+    A \Pn is specified by a directed graph $G(V,E)$ where each edge $e = (i, j) \in E$ represents a \Pe with $i, j \in V$. All \Pes are identical.
+
+    An \emph{execution} of a \Pn is a function that maps each edge in $G$ to a signal $t \mapsto u_C(t)$.
+
+    A \Pn $G$ \emph{converges} if for its execution we have that $u_{C,e}$ converges for all $e \in G$. It \emph{dies} if it converges, and for all its edges $e \in G$, $i_{p,e} = 0$.
+\end{frame}
+
 \end{document}
                                        
