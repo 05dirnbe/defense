@@ -65,10 +65,10 @@
 	\begin{figure}[h]
 		\captionsetup[subfloat]{position=bottom,labelformat=empty,font=scriptsize}
 		\begin{center}
-			\only<1>{\subfloat[Wikipedia CC BY-SA 4.0]{\includegraphics[angle=0,clip=true,width= \linewidth, trim = 0 0 0 0]{./pics/natural_computing.png}}}
-			\only<2>{\subfloat[Wikipedia CC BY-SA 4.0]{\includegraphics[angle=0,clip=true,width= \linewidth, trim = 0 0 0 0]{./pics/ants.jpg}}}
-			\only<3>{\subfloat[Wikipedia CC BY-SA 4.0]{\includegraphics[angle=0,clip=true,width= \linewidth, trim = 0 0 0 0]{./pics/weeds.jpg}}}
-			\only<4>{\subfloat[Wikipedia CC BY-SA 4.0]{\includegraphics[angle=0,clip=true,width= 0.67\linewidth, trim = 0 0 0 0]{./pics/dna.png}}}
+			\only<1>{\subfloat[\textcolor{gray}{Wikipedia CC BY-SA 4.0}]{\includegraphics[angle=0,clip=true,width= \linewidth, trim = 0 0 0 0]{./pics/natural_computing.png}}}
+			\only<2>{\subfloat[{Ant Colony Optimization, M. Dorigo, 2004}]{\includegraphics[angle=0,clip=true,width= 0.7\linewidth, trim = 0 0 0 0]{./pics/ants2.jpg}}}
+			\only<3>{\subfloat[\textcolor{gray}{Wikipedia CC BY-SA 4.0}]{\includegraphics[angle=0,clip=true,width= \linewidth, trim = 0 0 0 0]{./pics/weeds.jpg}}}
+			\only<4>{\subfloat[\textcolor{gray}{Wikipedia CC BY-SA 4.0}]{\includegraphics[angle=0,clip=true,width= 0.67\linewidth, trim = 0 0 0 0]{./pics/dna.png}}}
 		\end{center}
 	\end{figure}
 	\end{minipage} }
@@ -138,7 +138,7 @@
 
 		\begin{block}{Successful approaches:}
 		  \begin{itemize}
-		   \item<1> Positive feedback models.
+		   \item<1> Positive feedback models/algorithms.
 		   \item<2> Many particle simulations/cellular automata. 
 		   \item<3> Steering with light.
 		  \end{itemize}
@@ -157,9 +157,9 @@
 	\begin{figure}[h]
 		\captionsetup[subfloat]{position=bottom,labelformat=empty,font=scriptsize}
 		\begin{center}
-			\only<1>{\subfloat[T. Nakagaki \etal 2006]{\includegraphics[angle=0,clip=true,width= 0.8\linewidth, trim = 0 0 270 0]{./pics/shortest_path_model.pdf}}}
-			\only<2>{\subfloat[J. Jones 2010]{\includegraphics[angle=0,clip=true,width= 0.8\linewidth, trim = 0 0 0 0]{./pics/mst_agent.png}}}
-			\only<3>{\subfloat[M. Aono \etal 2007]{\includegraphics[angle=0,clip=true,width= 0.8\linewidth, trim = 0 0 0 0]{./pics/container_states.png}}}
+			\only<1>{\subfloat[see T. Nakagaki \etal 2006]{\includegraphics[angle=0,clip=true,width= 0.8\linewidth, trim = 0 0 270 0]{./pics/shortest_path_model.pdf}}}
+			\only<2>{\subfloat[see J. Jones 2010]{\includegraphics[angle=0,clip=true,width= 0.8\linewidth, trim = 0 0 0 0]{./pics/mst_agent.png}}}
+			\only<3>{\subfloat[see M. Aono \etal 2007]{\includegraphics[angle=0,clip=true,width= 0.8\linewidth, trim = 0 0 0 0]{./pics/container_states.png}}}
 		\end{center}
 	\end{figure}
 	\end{minipage} }
@@ -168,7 +168,7 @@
 	\end{overprint}
 	\end{column}
 	\end{columns}
-
+	\vspace{-0.5cm}
 	\begin{alertblock}{\underline{Caveat:}}
 		Distributed nature of \P has largely been ignored in the context of Natural Computing.
 	\end{alertblock}
@@ -181,7 +181,7 @@
     	Study the networks formed by \P in order to drive the development of a distributed model of its dynamic flows.
     \end{block}
 
-	\begin{alertblock}{Our approach:}
+	\begin{alertblock}{\underline{Our approach:}}
 		\begin{itemize}
 			\item Obtain a large body of experimental data.
 			\item Turn raw data into networks.
@@ -214,7 +214,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Network Extraction From Images} 
+    \frametitle{Network Extraction From Images \tiny{\textcolor{gray}{Dirnberger~\etal,~2015}}} 
 
 	\begin{columns}
 	\begin{column}{4cm}
@@ -224,8 +224,8 @@
 	  
 		\begin{block}{}
 		  \begin{itemize}
-		   \item Input: High quality image of a network.
-		   \item Output: Graph representation of depicted structure.
+		   \item {\usebeamercolor[fg]{structure} Input:} High quality image of a network.
+		   \item {\usebeamercolor[fg]{structure} Output:} Graph representation of depicted structure.
 		  \end{itemize}
 		\end{block}
 	\end{overprint}
@@ -261,8 +261,7 @@
     \frametitle{Analysis of \P networks} 
 
 	\begin{block}{\data:} 
-		Consists of $38$ distinct time series of \P graphs. 
-		A total of $1998$ weighted cubic planar graphs.
+		Consists of $38$ distinct time series of \P graphs, totalling $1998$ weighted planar graphs.
 	\end{block}
 
 	\begin{block}{Goal:} 
@@ -278,7 +277,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Robustness of \P networks} 
+    \frametitle{Robustness of \P networks \tiny{\textcolor{gray}{Dirnberger~\etal,~2016}}} 
    
 	\begin{figure}[h]
 		\captionsetup[subfloat]{position=bottom,labelformat=empty,font=scriptsize}
@@ -289,7 +288,7 @@
 	\end{figure}
 \end{frame}
 \begin{frame}
-    \frametitle{Robustness of \P networks} 
+    \frametitle{Robustness of \P networks \tiny{\textcolor{gray}{Dirnberger~\etal,~2016}}} 
    
 	\begin{figure}[h]
 		 \captionsetup[subfloat]{position=bottom,labelformat=empty,font=scriptsize}
@@ -301,7 +300,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Sharing is caring} 
+    \frametitle{Sharing is caring \tiny{\textcolor{gray}{Dirnberger~\etal,~2016}}} 
 
     \begin{block}{\underline{Slime Mold Graph Repository:}}
     	Collects  raw experimental data, graphs, results and useful tools.
@@ -347,24 +346,25 @@
 \begin{frame}
     \frametitle{Modelling the dynamics of \P} 
 
-    \begin{block}{The goal:} 
+    \begin{block}{The goal:}
+    	\vspace{-0.25cm}
     	Model the peristaltic pumping and derive dynamic fluid flows similar to what is observed in \P.
     \end{block}
 
-	\textcolor{red}{The problem:} Hydrodynamics is extremely difficult to work with!
+	\textcolor{red}{The problem:} Hydrodynamics is extremely difficult analytically!
 
 	\begin{columns}
 	\begin{column}{4.5cm}
 
 	\begin{overprint}
 
-		\begin{block}{Solution: Go electric!}
+		\begin{alertblock}{\underline{Solution: Go electric!}}
 		  \begin{itemize}
 		   \item Windkessel model.
 		   \item Peristaltic pumps replaced by current controlled voltage sources.
 		   \item Emergent oscillatory dynamics mimics real flow patterns.
 		  \end{itemize}
-		\end{block}
+		\end{alertblock}
 	\end{overprint}
 
 	\end{column}
@@ -540,20 +540,20 @@
 \begin{frame}
     \frametitle{\Pns}
 
-    A \Pn is specified by a directed graph $G(V,E)$ where each edge $e = (i, j) \in E$ represents a \Pe with $i, j \in V$. All \Pes are identical.
+    A \Pn is a directed graph $G$ where each edge represents a \Pe. For now, all \Pes are identical.
 
-    \begin{block}{Exploration of \Pns:}
+    \begin{alertblock}{Exploration of \Pns:}
 
     	\begin{itemize}
     		\item Continuous version
-    		\item Discrete version (Forward-Euler)
+    		\item Discretized version (Forward-Euler)
     	\end{itemize}
 
-    \end{block}
+    \end{alertblock}
 
     An \emph{execution} of a \Pn is a function that maps each edge in $G$ to a signal $t \mapsto u_C(t)$.
 
-    A \Pn $G$ \emph{converges} if for its execution we have that $u_{C,e}$ converges for all $e \in G$. It \emph{dies} if it converges, and for all its edges $e \in G$, $i_{p,e} = 0$.
+    A \Pn $G$ \emph{converges} if all $u_{C,e}$ converge. It \emph{dies} if it converges, and for all edges $i_{p,e} = 0$ holds.
 \end{frame}
 
 \begin{frame}
@@ -621,14 +621,14 @@
 	\begin{block}{Status Quo:}
 		We have obtained a novel distributed, robust model that mimics the flow dynamics of \P!
 	\end{block}
-	\begin{alertblock}{How to proceed?}
+	\begin{alertblock}{\underline{How to proceed?}}
 		\begin{itemize}
 			\item Try to use the flow reversals exhibited in the model in the context of link reversal algorithms (M. Függer, M. Grube).
 			\item Try to improve the realism of the model to obtain a more physical description.
 		\end{itemize}
 	\end{alertblock}
 
-	Both approaches are worthwhile and require specialist input.
+	Both approaches are worthwhile and require specialist input and continued interdisciplinary effort.
 \end{frame}
 
 \begin{frame}
@@ -640,6 +640,39 @@
 		\item Sketched our modelling attempts and demonstrated the validity of the approach.
 		\item Briefly discussed possible avenues for future developments.
 	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{} 
+
+	\begin{columns}
+	\begin{column}{5cm}
+
+	\begin{overprint}
+		\begin{center}
+			{\usebeamercolor[fg]{structure} Thank you.}
+		\end{center}
+	\end{overprint}
+
+	\end{column}
+
+	\begin{column}{5cm}
+	\begin{overprint}
+
+
+	     \begin{minipage}[t]{5 cm}
+
+			\begin{figure}[h]
+			 
+			     \begin{center}
+			      	\testbox{\includegraphics[angle=0,clip=true,width= 1.25\onethird, trim = 0 0 270 0]{./pics/physarum_art.JPG}}
+			     \end{center}
+
+			\end{figure}
+	     \end{minipage}
+
+	\end{overprint}
+	\end{column}
+	\end{columns}
 \end{frame}
 
 % back up slides go here
