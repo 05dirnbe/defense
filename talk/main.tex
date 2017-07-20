@@ -12,7 +12,9 @@
 \usepackage{thesisstyle}
 \usepackage{thesiscommands}
 
-\logo{\includegraphics[width=1cm]{./pics/unilogo}}
+\logo{
+	\raisebox{-.4\height}{\includegraphics[width=1cm]{./pics/unilogo}} \quad\insertframenumber\quad\quad
+}
 
 
 \title{Preliminaries for Distributed Natural Computing Inspired by the Slime Mold Physarum Polycephalum}
@@ -283,7 +285,7 @@
 		\captionsetup[subfloat]{position=bottom,labelformat=empty,font=scriptsize}
 	     \begin{center}
 	      % \testbox{\includegraphics[angle=0,clip=true,width= 0.8\linewidth, trim = 0 0 0 0]{./pics/persistence_heat.jpg}}
-	      \subfloat[Cleaned graph on-top of original image]{\includegraphics[angle=0,clip=true,width= 0.7\linewidth, trim = 0 0 0 0]{./pics/persistence_heat.jpg}}
+	      \subfloat[Cleaned graph on-top of original image.]{\includegraphics[angle=0,clip=true,width= 0.7\linewidth, trim = 0 0 0 0]{./pics/persistence_heat.jpg}}
 	     \end{center}
 	\end{figure}
 \end{frame}
@@ -444,7 +446,7 @@
 		% \label{fig:vein}
 	\end{figure}
 \end{frame}
-\begin{frame}
+\begin{frame}[noframenumbering]
 	\frametitle{Modelling vein segments - \Pes} 
 
 	\begin{figure}
@@ -490,7 +492,7 @@
           \end{block}
      \end{columns} 
 \end{frame}
-\begin{frame}
+\begin{frame}[noframenumbering]
 	\frametitle{Modelling vein segments - \Pes} 
 
 	\begin{figure}
@@ -573,7 +575,7 @@
 			\subfloat[Lemma: If a cycle converges it either a) dies \dots]{\includestandalone[width=\textwidth]{./pics/standalone/cycle/cycle_dead}}%
 		\end{figure}
 \end{frame}
-\begin{frame}
+\begin{frame}[noframenumbering]
 	\frametitle{Example: Counter-clockwise flow}
 		\begin{figure}
 			\centering
@@ -581,7 +583,7 @@
 			\subfloat[\dots \ it b) shows constant counter-clockwise flow or \dots]{\includestandalone[width=\textwidth]{./pics/standalone/cycle/cycle_cc}}%
 		\end{figure}
 \end{frame}
-\begin{frame}
+\begin{frame}[noframenumbering]
 	\frametitle{Example: Clockwise flow}
 		\begin{figure}
 			\centering
@@ -598,7 +600,7 @@
 			\subfloat[Model behaviour mimics experimental observations of A. Takamatsu \etal, 2000.]{\includestandalone[width=\textwidth]{./pics/standalone/coupled/1}}%
 		\end{figure}
 \end{frame}
-\begin{frame}
+\begin{frame}[noframenumbering]
 	\frametitle{Example: Two coupled cycles}
 		\begin{figure}
 			\centering
@@ -606,7 +608,7 @@
 			\subfloat[Model behaviour mimics experimental observations of A. Takamatsu \etal, 2000.]{\includestandalone[width=\textwidth]{./pics/standalone/coupled/2}}%
 		\end{figure}
 \end{frame}
-\begin{frame}
+\begin{frame}[noframenumbering]
 	\frametitle{Example: Two coupled cycles}
 		\begin{figure}
 			\centering
@@ -637,6 +639,7 @@
 	\begin{itemize}
 		\item Illustrated how the distributed nature of \Pp renders it a promising candidate for Natural Computing.
 		\item Presented our efforts to better understand the networks formed by the organism.
+		\item Emphasized how our work supports the community.
 		\item Sketched our modelling attempts and demonstrated the validity of the approach.
 		\item Briefly discussed possible avenues for future developments.
 	\end{itemize}
