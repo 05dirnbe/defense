@@ -1,0 +1,115 @@
+\ProvidesPackage{thesisstyle}	%define and include all the things you may need to write your thesis here
+
+
+\usepackage{etex}				  %use extended latex version
+
+%document options
+\usepackage[utf8]{inputenc}
+\usepackage[german, english]{babel}
+
+%\usepackage[section]{placeins}
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage[format=plain,labelfont=bf]{caption}
+\usepackage{ifpdf}
+\ifpdf
+   % put here packages only for the PDF:
+   \DeclareGraphicsExtensions{.pdf,.png,.jpg,.mps}
+\else
+   % put here packages only for the DVI:
+\fi
+
+\usepackage{tikz}
+\usetikzlibrary{spy}
+\usetikzlibrary{arrows}
+\usepackage[europeanresistors,americaninductors]{circuitikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+%math options
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{algorithm,algorithmic}
+\usepackage[mathic]{mathtools}
+\usepackage{siunitx}
+\sisetup{separate-uncertainty}
+\sisetup{round-mode=places,round-precision=4}
+
+
+%hyperref options
+\usepackage[plain]{fancyref}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true, linktocpage=true, pdfstartpage=3, pdfstartview=FitV,%
+  breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
+  plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
+  hypertexnames=true, pdfhighlight=/O,%
+  pdfauthor={Michael Dirnberger}, pdftitle={Preliminaries~for Distributed~Natural~Computing Inspired~by~the Slime Mold Physarum~Polycephalum}, pdfcreator={pdflatex},%
+}
+
+%bibliography and citation options
+\usepackage[autostyle]{csquotes}
+\PassOptionsToPackage{
+  backend=biber,
+  language=auto,
+  style=ieee, %
+  %style=numeric-comp,%
+  % style=authoryear-comp, % Author 1999, 2010
+  sorting=nyt, % name, year, title
+  maxbibnames=3, % default: 3, et al.
+  % backref=true,%
+  natbib=true, % natbib compatibility mode (\citep and \citet still work)
+  url=false,
+  isbn=false,
+  doi=false,
+  eprint=false,
+  %location=false,
+  %series=false,
+  %issue_date=false,
+  %edition=false,
+  %language=false
+}{biblatex}
+\usepackage{biblatex}
+\usepackage{cleveref}
+
+\AtEveryBibitem{\clearlist{language}} % clears language
+\AtEveryBibitem{\clearfield{note}}    % clears notes
+\AtEveryBibitem{\clearfield{doi}}   
+\AtEveryBibitem{\clearfield{location}}   
+\AtEveryBibitem{\clearfield{edition}}   
+\AtEveryBibitem{\clearfield{series}}   
+\AtEveryBibitem{\clearfield{address}}   
+\AtEveryBibitem{\clearfield{month}}   
+
+%footnotes
+\usepackage[bottom,marginal]{footmisc}
+\usepackage{fnpct}
+
+
+%beautify font
+%\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{xspace}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\SetTracking{encoding={*}, shape=sc}{10}
+\microtypecontext{spacing=nonfrench}
+\usepackage{lmodern}
+\usepackage{layout}
+\usepackage{parskip}    %kills the default paragraph indenting and sets /parskip to some useful value automatically
+\usepackage{multirow}
+
+
+
+%\usepackage{titlesec}
+
+%helpers
+\usepackage{float}
+\usepackage{tabularx,booktabs}
+%\usepackage{enumitem}
+\usepackage{todonotes}
+%\usepackage[newfloat]{minted}     % is required for code listings
+\usepackage{datetime}
+
+
+%misc stuff
+\usepackage{blindtext} 				%generates lorem ipsum
+%\usepackage{showframe}				%shows the invisible frames around the text for layouting

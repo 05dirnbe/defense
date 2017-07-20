@@ -1,0 +1,62 @@
+\ProvidesPackage{thesiscommands}	%define all the commands you may need to write your thesis
+
+\DeclareSIUnit\pixel{pixel}
+
+\newcommand{\NEFI}{\href{http://nefi.mpi-inf.mpg.de}{\textsc{Nefi}}\@\xspace}
+\newcommand{\NEFIs}{\href{http://nefi.mpi-inf.mpg.de}{\textsc{Nefi}'s}\@\xspace}
+
+\newcommand{\SMGR}{\href{http://smgr.mpi-inf.mpg.de}{\textsc{Smgr}}\@\xspace}
+\newcommand{\SMGRs}{\href{http://smgr.mpi-inf.mpg.de}{\textsc{Smgr}'s}\@\xspace}
+
+\newcommand{\OPT}{\textsc{Opt}}
+
+\newcommand{\data}{\textsc{Kist} Europe data set\@\xspace}
+\newcommand\series[1]{\texttt{data series #1}\@\xspace}
+
+\renewcommand{\P}{\textit{P.~polycephalum}\@\xspace}
+\newcommand{\Pp}{\textit{Physarum~polycephalum}\@\xspace}
+\newcommand{\Aa}{\textit{Ajax~junius}\@\xspace}
+\newcommand{\A}{\textit{A.~junius}\@\xspace}
+
+\newcommand{\Pe}{\emph{Physarum} element\@\xspace}
+\newcommand{\Pes}{\emph{Physarum} elements\@\xspace}
+\newcommand{\Pn}{\emph{Physarum} network\@\xspace}
+\newcommand{\Pns}{\emph{Physarum} networks\@\xspace}
+
+\newcommand{\ie}{i.e.\@\xspace}
+\newcommand{\eg}{e.g.\@\xspace}
+\newcommand{\etc}{etc.\@\xspace}
+\newcommand{\etal}{et al.\@\xspace}
+
+
+\newcommand*{\fancyrefcodelabelprefix}{code}
+\newcommand*{\codename}{Code Listing}
+\newcommand*{\Frefcodename}{Code Listing}
+\frefformat{plain}{\fancyrefcodelabelprefix}{%
+\Frefcodename\fancyrefdefaultspacing#1\@\xspace
+}%
+\Frefformat{plain}{\fancyrefcodelabelprefix}{%
+\codename\fancyrefdefaultspacing#1\@\xspace
+}%
+
+
+\newcommand{\testbox}[1]{\framebox{#1}}
+%\newcommand{\testbox}[1]{#1}
+
+
+\newtheorem{thm}{Theorem:}
+\newtheorem{lem}{Lemma:}
+\newcommand{\IR}{\mathbb{R}}
+\newcommand{\IN}{\mathbb{N}}
+
+\newlength{\one}
+\setlength{\one}{0.85\textwidth}
+
+\newlength{\onehalf}
+\setlength{\onehalf}{0.51\textwidth}
+
+\newlength{\onethird}
+\setlength{\onethird}{0.31\textwidth}
+
+\newlength{\twofifth}
+\setlength{\twofifth}{0.35\textwidth}
