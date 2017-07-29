@@ -94,9 +94,9 @@
 
 		\begin{block}{\Pp:}
 		  \begin{itemize}
-		   \item<2> Unicellular organism with many nuclei.
-		   \item<3> Intricate foraging strategy.
-		   \item<4> Networks distribute protoplasm.
+		   \item<2-> Unicellular organism with many nuclei.
+		   \item<3-> Intricate foraging strategy.
+		   \item<4-> Networks circulate protoplasm.
 		  \end{itemize}
 		\end{block}
 
@@ -113,8 +113,8 @@
 	\begin{figure}[h]
 		\captionsetup[subfloat]{position=bottom,labelformat=empty,font=scriptsize}
 		\begin{center}
-			\only<1>{\subfloat[Courtesy of Prof.~T.~Ueda]{\includegraphics[angle=0,clip=true,width= \linewidth, trim = 0 0 0 0]{./pics/physarum_forest.jpg}}}
-			\only<2>{\subfloat[Courtesy of Prof.~T.~Ueda]{\includegraphics[angle=0,clip=true,width= \linewidth, trim = 0 0 0 0]{./pics/tree_of_life.png}}}
+			\only<1>{\subfloat[Courtesy of Prof.~T.~Ueda]{\includegraphics[angle=0,clip=true,width= \linewidth, trim = 0 0 0 0]{./pics/tree_of_life.png}}}
+			\only<2>{\subfloat[Courtesy of Prof.~T.~Ueda]{\includegraphics[angle=0,clip=true,width= \linewidth, trim = 0 0 0 0]{./pics/physarum_forest.jpg}}}
 			\only<3>{\subfloat[Courtesy of Prof.~T.~Ueda]{\includegraphics[angle=0,clip=true,width= \linewidth, trim = 0 0 0 0]{./pics/physarum_exploring_tree_2.jpg}}}
 			\only<4>{\subfloat[Courtesy of Prof.~T.~Ueda]{\includegraphics[angle=0,clip=true,width= \linewidth, trim = 0 0 0 0]{./pics/physarum.jpg}}}
 		\end{center}
@@ -125,7 +125,7 @@
 	\end{column}
 	\end{columns}
 
-	\begin{alertblock}{\underline{Key Experiments show:}}
+	\begin{alertblock}{\underline{Key Properties:}}
 		Distributed dynamics, Min and Max capabilities
 	\end{alertblock}
 \end{frame}
@@ -140,9 +140,9 @@
 
 		\begin{block}{Successful approaches:}
 		  \begin{itemize}
-		   \item<1> Positive feedback models/algorithms.
-		   \item<2> Many particle simulations/cellular automata. 
-		   \item<3> Steering with light.
+		   \item<1-> Positive feedback models/algorithms.
+		   \item<2-> Many particle simulations/cellular automata. 
+		   \item<3-> Steering with light.
 		  \end{itemize}
 		\end{block}
 
@@ -172,21 +172,24 @@
 	\end{columns}
 	\vspace{-0.5cm}
 	\begin{alertblock}{\underline{Caveat:}}
-		Distributed nature of \P has largely been ignored in the context of Natural Computing.
+		Existing work is focused on morphological changes in \P. Flow dynamics have largely been ignored.
 	\end{alertblock}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Towards distributed Natural Computing} 
+    \frametitle{What about the flows?} 
 
-    \begin{block}{Our aim:}
+    \begin{block}{Observation:}
+    	\P maintains some type of dynamic flow circulation on a changing graph in a distributed manner.
+    \end{block}
+
+     \begin{block}{Our aim:}
     	Study the networks formed by \P in order to drive the development of a distributed model of its dynamic flows.
     \end{block}
 
 	\begin{alertblock}{\underline{Our approach:}}
 		\begin{itemize}
 			\item Obtain a large body of experimental data.
-			\item Turn raw data into networks.
 			\item Study network properties.
 			\item Model the dynamics exhibited by \P.
 		\end{itemize}
@@ -270,7 +273,7 @@
 		Obtain a catalogue of Observables that sheds light on various aspects of \P structures.
 	\end{block}
 
-	\begin{alertblock}{\underline{Key components:}}
+	\begin{alertblock}{\underline{Scope:}}
 	 \begin{itemize}
 	  \item Distributions of observables and their time development.
 	  \item Examples: Edge lenghts/widths, Face area/circumference and various other properties.
@@ -301,21 +304,21 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Sharing is caring \tiny{\textcolor{gray}{Dirnberger~\etal,~2016}}} 
+% \begin{frame}
+%     \frametitle{Sharing is caring \tiny{\textcolor{gray}{Dirnberger~\etal,~2016}}} 
 
-    \begin{block}{\underline{Slime Mold Graph Repository:}}
-    	Collects  raw experimental data, graphs, results and useful tools.
-    \end{block}
+%     \begin{block}{\underline{Slime Mold Graph Repository:}}
+%     	Collects  raw experimental data, graphs, results and useful tools.
+%     \end{block}
 
-	\begin{alertblock}{\underline{Motivation:}}
-	 \begin{itemize}
-		   \item Facilitate exchange and reuse of data.
-		   \item Make data available to everyone.
-		   \item Drive and evaluate modelling attempts.
-	 \end{itemize}
-	\end{alertblock}
-\end{frame}
+% 	\begin{alertblock}{\underline{Motivation:}}
+% 	 \begin{itemize}
+% 		   \item Facilitate exchange and reuse of data.
+% 		   \item Make data available to everyone.
+% 		   \item Drive and evaluate modelling attempts.
+% 	 \end{itemize}
+% 	\end{alertblock}
+% \end{frame}
 
 % % 9 slides
 \section{Part III: A distributed model of P.~polycephalum} 
@@ -326,19 +329,19 @@
 	\begin{alertblock}{\underline{Desirable properties:}}
 	 \begin{itemize}
 	 	\item The \textbf{organism} operates in a fully distributed manner and requires no central control.
-		\item The \textbf{organism} maintains a dynamic circulation of flow.
+		\item The \textbf{organism} maintains a dynamic circulation of flow including flow reversals.
 		\item The \textbf{organism} is robust against changes in topology.
 		\item The \textbf{organism} has a degree of efficiency.
 	 \end{itemize}
 	\end{alertblock}
 \end{frame}
-\begin{frame}
+\begin{frame}[noframenumbering]
     \frametitle{What we want from a model of \P} 
 
 	\begin{alertblock}{\underline{Desirable properties:}}
 	 \begin{itemize}
 	 	\item The \textbf{model} operates in a fully distributed manner and requires no central control.
-		\item The \textbf{model} maintains a dynamic circulation of flow.
+		\item The \textbf{model} maintains a dynamic circulation of flow including flow reversals.
 		\item The \textbf{model} is robust against changes in topology.
 		\item The \textbf{model} has a degree of efficiency.
 	 \end{itemize}
@@ -350,7 +353,7 @@
 
     \begin{block}{The goal:}
     	\vspace{-0.25cm}
-    	Model the peristaltic pumping and derive dynamic fluid flows similar to what is observed in \P.
+    	Model the peristaltic pumping and obtain dynamic fluid flows similar to what is observed in \P.
     \end{block}
 
 	\textcolor{red}{The problem:} Hydrodynamics is extremely difficult analytically!
@@ -360,9 +363,9 @@
 
 	\begin{overprint}
 
-		\begin{alertblock}{\underline{Solution: Go electric!}}
+		\begin{alertblock}{\underline{Solution:}}
 		  \begin{itemize}
-		   \item Windkessel model.
+		   % \item Windkessel model.
 		   \item Peristaltic pumps replaced by current controlled voltage sources.
 		   \item Emergent oscillatory dynamics mimics real flow patterns.
 		  \end{itemize}
@@ -559,15 +562,6 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Example: Synchronisation on a tree}
-		\begin{figure}
-			\centering
-			\captionsetup[subfloat]{position=bottom,labelformat=empty,font=scriptsize}
-			\subfloat[Lemma: If a tree converges it dies.]{\includestandalone[width=\textwidth]{./pics/standalone/tree/tree}}%
-		\end{figure}
-\end{frame}
-
-\begin{frame}
 	\frametitle{Example: The death of a cycle}
 		\begin{figure}
 			\centering
@@ -593,22 +587,31 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Example: Two coupled cycles}
+	\frametitle{Example: Synchronisation on a tree}
 		\begin{figure}
 			\centering
 			\captionsetup[subfloat]{position=bottom,labelformat=empty,font=scriptsize}
-			\subfloat[Model behaviour mimics experimental observations of A. Takamatsu \etal, 2000.]{\includestandalone[width=\textwidth]{./pics/standalone/coupled/1}}%
+			\subfloat[Lemma: If a tree converges it dies.]{\includestandalone[width=\textwidth]{./pics/standalone/tree/tree}}%
 		\end{figure}
 \end{frame}
-\begin{frame}[noframenumbering]
-	\frametitle{Example: Two coupled cycles}
-		\begin{figure}
-			\centering
-			\captionsetup[subfloat]{position=bottom,labelformat=empty,font=scriptsize}
-			\subfloat[Model behaviour mimics experimental observations of A. Takamatsu \etal, 2000.]{\includestandalone[width=\textwidth]{./pics/standalone/coupled/2}}%
-		\end{figure}
-\end{frame}
-\begin{frame}[noframenumbering]
+
+% \begin{frame}
+% 	\frametitle{Example: Two coupled cycles}
+% 		\begin{figure}
+% 			\centering
+% 			\captionsetup[subfloat]{position=bottom,labelformat=empty,font=scriptsize}
+% 			\subfloat[Model behaviour mimics experimental observations of A. Takamatsu \etal, 2000.]{\includestandalone[width=\textwidth]{./pics/standalone/coupled/1}}%
+% 		\end{figure}
+% \end{frame}
+% \begin{frame}[noframenumbering]
+% 	\frametitle{Example: Two coupled cycles}
+% 		\begin{figure}
+% 			\centering
+% 			\captionsetup[subfloat]{position=bottom,labelformat=empty,font=scriptsize}
+% 			\subfloat[Model behaviour mimics experimental observations of A. Takamatsu \etal, 2000.]{\includestandalone[width=\textwidth]{./pics/standalone/coupled/2}}%
+% 		\end{figure}
+% \end{frame}
+\begin{frame}
 	\frametitle{Example: Two coupled cycles}
 		\begin{figure}
 			\centering
@@ -621,16 +624,16 @@
 	\frametitle{A model at the cross-roads}
 
 	\begin{block}{Status Quo:}
-		We have obtained a novel distributed, robust model that mimics the flow dynamics of \P!
+		We have obtained a novel distributed model that mimics the flow dynamics of \P!
 	\end{block}
 	\begin{alertblock}{\underline{How to proceed?}}
 		\begin{itemize}
-			\item Try to use the flow reversals exhibited in the model in the context of link reversal algorithms (M. Függer, M. Grube).
+			\item Try to use the flow reversals exhibited in the model to solve a problem (M. Függer, M. Grube).
 			\item Try to improve the realism of the model to obtain a more physical description.
 		\end{itemize}
 	\end{alertblock}
 
-	Both approaches are worthwhile and require specialist input and continued interdisciplinary effort.
+	Both approaches are worthwhile, require specialist input and continued interdisciplinary effort.
 \end{frame}
 
 \begin{frame}
@@ -639,12 +642,12 @@
 	\begin{itemize}
 		\item Illustrated how the distributed nature of \Pp renders it a promising candidate for Natural Computing.
 		\item Presented our efforts to better understand the networks formed by the organism.
-		\item Emphasized how our work supports the community.
+		% \item Emphasized how our work supports the community.
 		\item Sketched our modelling attempts and demonstrated the validity of the approach.
 		\item Briefly discussed possible avenues for future developments.
 	\end{itemize}
 \end{frame}
-\begin{frame}
+\begin{frame}[noframenumbering]
 	\frametitle{} 
 
 	\begin{columns}
